@@ -1,0 +1,104 @@
+/* Basic reset */
+body,
+html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: #282c34;
+    color: white;
+}
+
+#mandalaContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#mandalaCanvas {
+    max-width: 100%;
+    max-height: 100vh;
+}
+
+canvas {
+    border: none;
+    /*2px solid #61dafb;*/
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.controls {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.controls label {
+    margin-right: 10px;
+}
+
+.controls select,
+.controls input[type="range"] {
+    padding: 10px;
+    border: 2px solid #61dafb;
+    border-radius: 5px;
+    background: #20232a;
+    color: white;
+    font-size: 16px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.controls select:focus,
+.controls input[type="range"]:focus {
+    outline: none;
+    border-color: #61dafb;
+    box-shadow: 0 0 5px #61dafb;
+}
+
+.controls select option {
+    background: #20232a;
+    color: white;
+}
+
+.controls input[type="range"] {
+    width: 100%;
+}
+
+.controls input[type="range"]::-webkit-slider-thumb {
+    background: #61dafb;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.controls input[type="range"]::-moz-range-thumb {
+    background: #61dafb;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.controls input[type="range"]::-ms-thumb {
+    background: #61dafb;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
