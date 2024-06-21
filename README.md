@@ -44,6 +44,14 @@ You can configure the visualizer using URL parameters:
 Example:
 `URL: https://placeholderdomain.co.nz/?shape=metatronsCube&colorMode=rainbow&echoEffect=0.5&fallingEffect=true`
 
+## Screenshots:
+### Flower of Life
+![image](https://github.com/Nzglobal/Auditory-Hallucinations/assets/9160922/8162aa39-9004-4208-a6ed-0073c9702933)
+
+### 'Metatrons Cube'
+![image](https://github.com/Nzglobal/Auditory-Hallucinations/assets/9160922/a86ffd49-65f7-4407-a714-31bc675786ba)
+
+
 ## Technical Details
 - **HTML**: Structure and layout of the website.
 - **CSS**: Styling for the visual elements and controls.
