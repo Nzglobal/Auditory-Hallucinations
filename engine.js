@@ -166,8 +166,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
     
             function onSessionStarted(session) {
                 xrSession = session;
+                isXRSessionActive = true;
                 session.addEventListener('end', onSessionEnded);
-                renderer.xr.setSession(session);
+                session.updateRenderState({ baseLayer: new XRWebGLLayer(session, gl) });
                 session.requestReferenceSpace('local-floor').then(refSpace => {
                     xrRefSpace = refSpace;
                     session.requestAnimationFrame(renderFrame);
