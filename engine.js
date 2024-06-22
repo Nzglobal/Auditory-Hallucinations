@@ -29,6 +29,8 @@ function applyConfigFromParams(params) {
 let webcamStream;
 let webcamCanvas;
 let webcamCtx;
+let xrSession = null;
+let xrRefSpace = null;
 
 function startWebcam() {
     const video = document.createElement('video');
@@ -154,22 +156,21 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     alert('WebXR not supported in this browser.');
                 }
             });
-
+    
             function onSessionStarted(session) {
+                xrSession = session;
                 session.addEventListener('end', onSessionEnded);
                 renderer.xr.setSession(session);
                 session.requestReferenceSpace('local-floor').then(refSpace => {
-                    renderer.xr.setReferenceSpace(refSpace);
-                    session.requestAnimationFrame(onXRFrame);
+                    xrRefSpace = refSpace;
+                    session.requestAnimationFrame(renderFrame);
                 });
             }
-
+    
             function onSessionEnded(event) {
-                const session = event.session;
-                session.removeEventListener('end', onSessionEnded);
-                renderer.xr.setSession(null);
+                xrSession = null;
             }
-
+            
             function onXRFrame(time, frame) {
                 const session = frame.session;
                 session.requestAnimationFrame(onXRFrame);
