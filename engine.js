@@ -31,6 +31,8 @@ let webcamCanvas;
 let webcamCtx;
 let xrSession = null;
 let xrRefSpace = null;
+let isXRSessionActive = false;
+
 
 function startWebcam() {
     const video = document.createElement('video');
@@ -117,19 +119,23 @@ document.addEventListener('DOMContentLoaded', (event) => {
             let centerX = window.innerWidth / 2;
             let centerY = window.innerHeight / 2;
 
-            function renderFrame() {
-                requestAnimationFrame(renderFrame);
+            function renderFrame(timestamp, frame) {
+                if (xrSession) {
+                    xrSession.requestAnimationFrame(renderFrame);
+                } else {
+                    requestAnimationFrame(renderFrame);
+                }
                 analyser.getByteFrequencyData(dataArray);
-
+    
                 const canvas = document.getElementById('mandalaCanvas');
                 const ctx = canvas.getContext('2d');
-
+    
                 // Set global alpha for echo effect
                 ctx.fillStyle = `rgba(0, 0, 0, ${echoSlider.value})`;
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
-
+    
                 const falling = fallingToggle.checked;
-
+    
                 if (falling) {
                     // Move shapes towards the center
                     centerX += (window.innerWidth / 2 - centerX) * 0.05;
@@ -139,11 +145,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     centerX -= (centerX - window.innerWidth / 2) * 0.05;
                     centerY -= (centerY - window.innerHeight / 2) * 0.05;
                 }
-
+    
                 generateMandala(dataArray, ctx, canvas, frequencyStep, bufferLength, shapeSelect.value, colorModeSelect.value, centerX, centerY, webcamToggle.checked);
             }
 
             renderFrame();
+            
             // WebXR setup
             enterVRButton.addEventListener('click', () => {
                 if (navigator.xr) {
