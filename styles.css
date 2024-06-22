@@ -102,3 +102,21 @@ canvas {
     height: 20px;
     cursor: pointer;
 }
+
+#enterVRButton {
+    padding: 15px 30px; /* Increase padding for a larger button */
+    font-size: 18px; /* Increase font size */
+    border: 2px solid #61dafb; /* Match existing control borders */
+    border-radius: 5px; /* Match existing control border radius */
+    background: #20232a; /* Match existing control background */
+    color: white; /* Match existing control text color */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Match existing control box shadow */
+    transition: all 0.3s ease; /* Match existing control transition */
+    cursor: pointer; /* Change cursor to pointer */
+    margin-top: 20px; /* Add some spacing at the top */
+}
+
+#enterVRButton:hover {
+    border-color: #61dafb; /* Maintain border color on hover */
+    box-shadow: 0 0 5px #61dafb; /* Maintain box shadow on hover */
+}
