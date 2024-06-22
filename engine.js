@@ -142,6 +142,23 @@ document.addEventListener('DOMContentLoaded', (event) => {
             }
 
             renderFrame();
+            // WebXR setup
+            enterVRButton.addEventListener('click', () => {
+                if (navigator.xr) {
+                    navigator.xr.requestSession('immersive-vr').then(onSessionStarted);
+                } else {
+                    alert('WebXR not supported in this browser.');
+                }
+            });
+
+            function onSessionStarted(session) {
+                session.addEventListener('end', onSessionEnded);
+                renderer.xr.setSession(session);
+            }
+
+            function onSessionEnded() {
+                renderer.xr.setSession(null);
+            }
         })
         .catch(error => {
             console.error('Error capturing audio:', error);
