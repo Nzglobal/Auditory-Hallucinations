@@ -145,7 +145,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
             // WebXR setup
             enterVRButton.addEventListener('click', () => {
                 if (navigator.xr) {
-                    navigator.xr.requestSession('immersive-vr').then(onSessionStarted);
+                    navigator.xr.requestSession('immersive-vr', {
+                        optionalFeatures: ['local-floor', 'bounded-floor']
+                    }).then(onSessionStarted).catch(err => {
+                        console.error('Failed to start XR session:', err);
+                    });
                 } else {
                     alert('WebXR not supported in this browser.');
                 }
@@ -154,11 +158,26 @@ document.addEventListener('DOMContentLoaded', (event) => {
             function onSessionStarted(session) {
                 session.addEventListener('end', onSessionEnded);
                 renderer.xr.setSession(session);
+                session.requestReferenceSpace('local-floor').then(refSpace => {
+                    renderer.xr.setReferenceSpace(refSpace);
+                    session.requestAnimationFrame(onXRFrame);
+                });
             }
 
-            function onSessionEnded() {
+            function onSessionEnded(event) {
+                const session = event.session;
+                session.removeEventListener('end', onSessionEnded);
                 renderer.xr.setSession(null);
             }
+
+            function onXRFrame(time, frame) {
+                const session = frame.session;
+                session.requestAnimationFrame(onXRFrame);
+
+                // Your rendering code here
+                renderFrame();
+            }
+
         })
         .catch(error => {
             console.error('Error capturing audio:', error);
