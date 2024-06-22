@@ -107,6 +107,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             const echoSlider = document.getElementById('echoSlider');
             const fallingToggle = document.getElementById('fallingToggle');
             const webcamToggle = document.getElementById('webcamToggle');
+            const enterVRButton = document.getElementById('enterVRButton');
 
             webcamToggle.addEventListener('change', (e) => {
                 if (e.target.checked) {
@@ -129,6 +130,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     
                 const canvas = document.getElementById('mandalaCanvas');
                 const ctx = canvas.getContext('2d');
+                const gl = canvas.getContext('webgl', { xrCompatible: true });
     
                 // Set global alpha for echo effect
                 ctx.fillStyle = `rgba(0, 0, 0, ${echoSlider.value})`;
